@@ -20,30 +20,68 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="记录">
-<meta property="og:type" content="website">
-<meta property="og:title" content="abyanwang-blog">
-<meta property="og:url" content="http://example.com/index.html">
+  <meta name="description" content="C++基础1.引用和指针的区别 对于指针来说，它是一个地址，这个地址是一个数值，那么就意味这个数值可以为0(空指针)，也可以为其他，即指针可以不指向任何东西。 而对于引用来说，他是一个外号，外号一定是“某个存在物体”的外号，所以引用不能为空，即不能存在空引用。 根据以上可知指针和引用的一个重要不同：指针可以为空，引用不能为空。这就意味着我们拿到一个引用的时候，是不需要判断引用是否为空的，而拿到一个">
+<meta property="og:type" content="article">
+<meta property="og:title" content="面试总结">
+<meta property="og:url" content="http://example.com/2020/10/23/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/index.html">
 <meta property="og:site_name" content="abyanwang-blog">
-<meta property="og:description" content="记录">
+<meta property="og:description" content="C++基础1.引用和指针的区别 对于指针来说，它是一个地址，这个地址是一个数值，那么就意味这个数值可以为0(空指针)，也可以为其他，即指针可以不指向任何东西。 而对于引用来说，他是一个外号，外号一定是“某个存在物体”的外号，所以引用不能为空，即不能存在空引用。 根据以上可知指针和引用的一个重要不同：指针可以为空，引用不能为空。这就意味着我们拿到一个引用的时候，是不需要判断引用是否为空的，而拿到一个">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://i.loli.net/2020/09/01/VICpcsohbQay4WD.png">
+<meta property="og:image" content="https://i.loli.net/2020/09/01/G1Fta7ZfVKsuBx5.png">
+<meta property="og:image" content="https://cs-notes-1256109796.cos.ap-guangzhou.myqcloud.com/5778d113-8e13-4c53-b5bf-801e58080b97.png">
+<meta property="og:image" content="https://camo.githubusercontent.com/2deabe6ad312b7f211941d24a4241fbb00a8c22f/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f63363235626161302d646465362d343439652d393364662d6333613637663266343330662e6a7067">
+<meta property="og:image" content="https://camo.githubusercontent.com/2eb375354cc7b06ee58cbc8a1aa7b18907208d91/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f36326537373939372d363935372d346236382d386431322d6266643630396262326336382e6a7067">
+<meta property="og:image" content="https://camo.githubusercontent.com/5bd72d589ead80c22547e3288a9a406241a1fb6b/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f66393965653737312d633536662d343766622d393134382d6330303336363935623566652e6a7067">
+<meta property="og:image" content="https://camo.githubusercontent.com/5049da1b34969b272be2bffc6c6de0206b33253c/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f39626264646565622d653933392d343166302d386538652d3262316130616137653061372e706e67">
+<meta property="og:image" content="https://picb.zhimg.com/v2-708af888a7b9863115479dada9d75da4_r.jpg">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/6/165ada51fe7f6dab?imageslim">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/6/165ada570c8b7874?imageslim">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-8be0ec286e81908e88b709603f98e61b_r.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/08/25/DPSRun4eVqMks5A.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/6s94jYgmZQvAnVN.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/FixvHfr3Bg8nMYT.png">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/11281208-d76e6c85873fbef8.png?imageMogr2/auto-orient/strip">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/5obuekAI2LE3xpP.png">
+<meta property="og:image" content="https://s3.51cto.com/wyfs02/M02/22/DA/wKioL1MpX-qwK1-PAAExXPRpR8M814.jpg">
+<meta property="og:image" content="https://camo.githubusercontent.com/d89aed2ba6c5390aad0626b013c288d8849c4f39/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f313439323932383130353739315f332e706e67">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/UCeEiTsxHZz2kor.png">
+<meta property="og:image" content="http://c.biancheng.net/cpp/uploads/allimg/140701/1-140F102004L08.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/dhvqfSOgc1IzWke.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/6NCAJWMjzvb8lLn.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/aic5EeXWBK49UvL.png">
+<meta property="og:image" content="https://pic1.zhimg.com/v2-2ce9fa4e6d645ed4f105b8334fc2c488_b.jpg">
+<meta property="og:image" content="https://pic4.zhimg.com/v2-fbb0e0b277cc1177d2e76518793f99cf_b.jpg">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/GidhqRvSY8DlIKX.png">
+<meta property="og:image" content="https://i.loli.net/2020/08/26/lLX2DxpRtHMIJFs.png">
+<meta property="og:image" content="https://pic2.zhimg.com/v2-51ac7193b5a80f5a1234df7dce23a2d8_b.jpg">
+<meta property="og:image" content="https://camo.githubusercontent.com/0f6672e4eb9209a79edb5524df93e4c401753488/68747470733a2f2f63732d6e6f7465732d313235363130393739362e636f732e61702d6775616e677a686f752e6d7971636c6f75642e636f6d2f6d61737465722d736c6176652e706e67">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/3/4/170a4871a05c2531?imageslim">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2020/3/4/170a4b639f36b8d4?imageslim">
+<meta property="og:image" content="https://img-blog.csdn.net/20141009182943906">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/9/17/165e6dc6a1e0c18e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1">
+<meta property="og:image" content="https://img-blog.csdn.net/20180708224853769?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E3NDUyMzM3MDA=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70">
+<meta property="article:published_time" content="2020-10-23T07:50:11.000Z">
+<meta property="article:modified_time" content="2020-10-23T08:14:45.799Z">
 <meta property="article:author" content="abyanwang">
+<meta property="article:tag" content="面试">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i.loli.net/2020/09/01/VICpcsohbQay4WD.png">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/2020/10/23/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>abyanwang-blog</title>
+  <title>面试总结 | abyanwang-blog</title>
   
 
 
@@ -146,77 +184,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/10/23/gorm%E4%B8%ADdefault%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="abyanwang">
-      <meta itemprop="description" content="记录">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="abyanwang-blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/23/gorm%E4%B8%ADdefault%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">gorm中default使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-10-23 15:50:11 / 修改时间：15:59:48" itemprop="dateCreated datePublished" datetime="2020-10-23T15:50:11+08:00">2020-10-23</time>
-            </span>
-
-          
-
-        </div>
-      </header>
 
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="https://i.loli.net/2020/10/22/KDZbOJkUdA6L3pX.png" alt="image.png"></p>
-<p>由于golang的struct中的字段会自己初始化，比如int为0，string为””，导致使用gorm插入数据库的时候，会出现将默认值插入的问题。而且不会使用数据库中default字段。</p>
-<p>为了使用数据库中的默认的字段，我们需要在这里使用default tag，如果我们在建表的时候使用的是自己写sql语言，那么这里的default 可以随便指定一个，因为他自己从数据库里面加载。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> BlogUser <span class="keyword">struct</span> &#123;</span><br><span class="line">   Id <span class="keyword">int64</span> <span class="string">`gorm:&quot;column:id&quot;`</span></span><br><span class="line">   Uid <span class="keyword">int64</span> <span class="string">`gorm:&quot;column:uid&quot;`</span></span><br><span class="line">   UserName <span class="keyword">string</span> <span class="string">`gorm:&quot;column:user_name&quot;`</span></span><br><span class="line">   PassWord <span class="keyword">string</span> <span class="string">`gorm:&quot;column:password;default:&#x27;654321&#x27;&quot;`</span></span><br><span class="line">   Avatar sql.NullString <span class="string">`gorm:&quot;column:avatar&quot;`</span></span><br><span class="line">   IsDeleted <span class="keyword">bool</span> <span class="string">`gorm:&quot;column:is_deleted&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-<p><img src="https://i.loli.net/2020/10/22/J35RrIxVAM41EUw.png" alt="image.png"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
@@ -232,10 +203,9 @@
       <meta itemprop="name" content="abyanwang-blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/10/23/%E9%9D%A2%E8%AF%95%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">面试总结</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          面试总结
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -259,7 +229,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="C-基础"><a href="#C-基础" class="headerlink" title="C++基础"></a>C++基础</h2><h3 id="1-引用和指针的区别"><a href="#1-引用和指针的区别" class="headerlink" title="1.引用和指针的区别"></a>1.引用和指针的区别</h3><p> 对于指针来说，它是一个地址，这个地址是一个数值，那么就意味这个数值可以为0(空指针)，也可以为其他，即指针可以不指向任何东西。</p>
+        <h2 id="C-基础"><a href="#C-基础" class="headerlink" title="C++基础"></a>C++基础</h2><h3 id="1-引用和指针的区别"><a href="#1-引用和指针的区别" class="headerlink" title="1.引用和指针的区别"></a>1.引用和指针的区别</h3><p> 对于指针来说，它是一个地址，这个地址是一个数值，那么就意味这个数值可以为0(空指针)，也可以为其他，即指针可以不指向任何东西。</p>
 <p>而对于引用来说，他是一个外号，外号一定是“某个存在物体”的外号，所以引用不能为空，即不能存在空引用。</p>
 <p>根据以上可知指针和引用的一个重要不同：<strong>指针可以为空，引用不能为空。</strong>这就意味着我们拿到一个引用的时候，是不需要判断引用是否为空的，而拿到一个指针的时候，我们则需要判断它是否为空。这点经常在判断函数参数是否有效的时候使用。<br>例如：</p>
 <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> *point)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="comment">// 为了代码的稳健和安全，我们需要判断指针是否有效,通常做法是判断指针是否为</span></span><br><span class="line">     <span class="comment">// 空，其他的判断就需要根据函数的具体功能来判断了</span></span><br><span class="line">     <span class="keyword">if</span>(!point)</span><br><span class="line">     &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="comment">// 函数实现</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> &amp;refence)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">     <span class="comment">// 在这里，我们就不用担心refence是否为空</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -910,21 +880,33 @@
 <p>因为所有的参数都是通过值传递的，这就可以解释为什么 <code>*Cat</code> 的方法不能被 <code>Cat</code> 类型的值调用了。任何一个 <code>Cat</code> 类型的值可能会有很多 <code>*Cat</code> 类型的指针指向它，如果我们尝试通过 <code>Cat</code> 类型的值来调用 <code>*Cat</code> 的方法，根本就不知道对应的是哪个指针。相反，如果 <code>Dog</code> 类型上有一个方法，通过 <code>*Dog</code> 来调用这个方法可以确切的找到该指针对应的 <code>Gog</code> 类型的值，从而调用上面的方法。运行时，Go 会自动帮我们做这些，所以我们不需要像 C语言中那样使用类似如下的语句 <code>d-&gt;Speak()</code> 。</p>
 <p>接收的一般是指针是因为如果是一个值的话，不能够修改struct的内部的字段，指针的话可以修改。</p>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+          <div class="post-tags">
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"># 面试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/23/gorm%E4%B8%ADdefault%E4%BD%BF%E7%94%A8/" rel="next" title="gorm中default使用">
+      gorm中default使用 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
@@ -977,6 +959,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#C-%E5%9F%BA%E7%A1%80"><span class="nav-number">1.</span> <span class="nav-text">C++基础</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%BC%95%E7%94%A8%E5%92%8C%E6%8C%87%E9%92%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.1.</span> <span class="nav-text">1.引用和指针的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-new-delete-malloc-free"><span class="nav-number">1.2.</span> <span class="nav-text">2.new delete malloc free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-vector%E5%92%8Clist%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.3.</span> <span class="nav-text">3.vector和list的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-vector%E7%9A%84%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%9C%BA%E5%88%B6"><span class="nav-number">1.4.</span> <span class="nav-text">4.vector的内存分配机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-set-map"><span class="nav-number">1.5.</span> <span class="nav-text">5.set map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%99%9A%E5%87%BD%E6%95%B0"><span class="nav-number">1.6.</span> <span class="nav-text">6.虚函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%AE%8C%E5%85%A8%E8%83%8C%E5%8C%85%E7%9A%84%E6%8E%A8%E5%AF%BC"><span class="nav-number">1.7.</span> <span class="nav-text">7.完全背包的推导</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E5%B7%A6%E9%97%AD%E5%8F%B3%E5%BC%80%E7%9A%84%E5%86%99%E6%B3%95"><span class="nav-number">1.8.</span> <span class="nav-text">8.左闭右开的写法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-c-%E5%86%85%E5%AD%98"><span class="nav-number">1.9.</span> <span class="nav-text">9.c++内存</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-static"><span class="nav-number">1.10.</span> <span class="nav-text">10.static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-vector-deque"><span class="nav-number">1.11.</span> <span class="nav-text">11.vector deque</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-delete%E5%92%8Cdelete"><span class="nav-number">1.12.</span> <span class="nav-text">12.delete和delete[]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E7%94%A8delete%E5%92%8Cfree"><span class="nav-number">1.13.</span> <span class="nav-text">13.用delete和free</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E5%86%85%E5%AD%98%E5%AF%B9%E9%BD%90"><span class="nav-number">1.14.</span> <span class="nav-text">14.内存对齐</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-%E6%99%BA%E8%83%BD%E6%8C%87%E9%92%88"><span class="nav-number">1.15.</span> <span class="nav-text">15.智能指针</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-%E8%99%9A%E8%A1%A8"><span class="nav-number">1.16.</span> <span class="nav-text">16.虚表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-%E5%8F%B3%E5%80%BC%E5%BC%95%E7%94%A8"><span class="nav-number">1.17.</span> <span class="nav-text">17.右值引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-%E9%93%BE%E6%8E%A5%E5%BA%93"><span class="nav-number">1.18.</span> <span class="nav-text">18.链接库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.19.</span> <span class="nav-text">19.面向对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20-memcpy"><span class="nav-number">1.20.</span> <span class="nav-text">20.memcpy</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E5%9F%BA%E7%A1%80%E5%AD%A6%E4%B9%A0"><span class="nav-number">2.</span> <span class="nav-text">Java基础学习</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-HashMap%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90"><span class="nav-number">2.1.</span> <span class="nav-text">1.HashMap源码分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-java%E8%87%AA%E5%8A%A8%E8%A3%85%E7%AE%B1%E5%92%8C%E6%8B%86%E7%AE%B1%E6%9C%BA%E5%88%B6"><span class="nav-number">2.2.</span> <span class="nav-text">2.java自动装箱和拆箱机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-String"><span class="nav-number">2.3.</span> <span class="nav-text">3.String</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E5%80%BC%E4%BC%A0%E9%80%92"><span class="nav-number">2.4.</span> <span class="nav-text">4.值传递</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E4%B8%8D%E5%90%8C"><span class="nav-number">2.5.</span> <span class="nav-text">5.抽象类和接口的不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-java%E6%B3%9B%E5%9E%8B%E7%BC%96%E7%A8%8B"><span class="nav-number">2.6.</span> <span class="nav-text">6.java泛型编程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-HashMap%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84"><span class="nav-number">2.7.</span> <span class="nav-text">7.HashMap为什么不是线程安全的</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-put%E5%AF%BC%E8%87%B4%E4%B8%A2%E5%A4%B1"><span class="nav-number">2.7.1.</span> <span class="nav-text">1.put导致丢失</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-put%E5%92%8Cget%E5%B9%B6%E5%8F%91%E6%97%B6%EF%BC%8C%E5%8F%AF%E8%83%BD%E5%AF%BC%E8%87%B4get%E4%B8%BAnull"><span class="nav-number">2.7.2.</span> <span class="nav-text">2.put和get并发时，可能导致get为null</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-jdk1-7%E4%B8%AD%E4%BC%9A%E6%9C%89%E4%B8%A4%E4%B8%AA%E5%B9%B6%E5%8F%91put%E7%9A%84%E6%97%B6%E5%80%99%E5%AF%BC%E8%87%B4%E6%AD%BB%E5%BE%AA%E7%8E%AF%E7%9A%84%E6%83%85%E5%86%B5"><span class="nav-number">2.7.3.</span> <span class="nav-text">3.jdk1.7中会有两个并发put的时候导致死循环的情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-jvm%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.8.</span> <span class="nav-text">8.jvm内存模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">2.9.</span> <span class="nav-text">9.垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">2.9.1.</span> <span class="nav-text">1.垃圾回收算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E7%BB%8F%E5%85%B8%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">2.9.2.</span> <span class="nav-text">2.经典收集器</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#CMS"><span class="nav-number">2.9.2.1.</span> <span class="nav-text">CMS</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#G1%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">2.9.2.2.</span> <span class="nav-text">G1收集器</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-volatile%E5%92%8Csynchronized"><span class="nav-number">2.10.</span> <span class="nav-text">10.volatile和synchronized</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E7%90%86%E8%A7%A3Java%E7%9A%84%E5%BC%BA%E5%BC%95%E7%94%A8%E3%80%81%E8%BD%AF%E5%BC%95%E7%94%A8%E3%80%81%E5%BC%B1%E5%BC%95%E7%94%A8%E5%92%8C%E8%99%9A%E5%BC%95%E7%94%A8"><span class="nav-number">2.11.</span> <span class="nav-text">11.理解Java的强引用、软引用、弱引用和虚引用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E5%BC%BA%E5%BC%95%E7%94%A8-https-cyc2018-github-io-CS-Notes-notes-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA-id-1-%E5%BC%BA%E5%BC%95%E7%94%A8"><span class="nav-number">2.11.1.</span> <span class="nav-text">[1. 强引用](https:&#x2F;&#x2F;cyc2018.github.io&#x2F;CS-Notes&#x2F;#&#x2F;notes&#x2F;Java 虚拟机?id&#x3D;_1-强引用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-%E8%BD%AF%E5%BC%95%E7%94%A8-https-cyc2018-github-io-CS-Notes-notes-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA-id-2-%E8%BD%AF%E5%BC%95%E7%94%A8"><span class="nav-number">2.11.2.</span> <span class="nav-text">[2. 软引用](https:&#x2F;&#x2F;cyc2018.github.io&#x2F;CS-Notes&#x2F;#&#x2F;notes&#x2F;Java 虚拟机?id&#x3D;_2-软引用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%BC%B1%E5%BC%95%E7%94%A8-https-cyc2018-github-io-CS-Notes-notes-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA-id-3-%E5%BC%B1%E5%BC%95%E7%94%A8"><span class="nav-number">2.11.3.</span> <span class="nav-text">[3. 弱引用](https:&#x2F;&#x2F;cyc2018.github.io&#x2F;CS-Notes&#x2F;#&#x2F;notes&#x2F;Java 虚拟机?id&#x3D;_3-弱引用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-%E8%99%9A%E5%BC%95%E7%94%A8-https-cyc2018-github-io-CS-Notes-notes-Java-%E8%99%9A%E6%8B%9F%E6%9C%BA-id-4-%E8%99%9A%E5%BC%95%E7%94%A8"><span class="nav-number">2.11.4.</span> <span class="nav-text">[4. 虚引用](https:&#x2F;&#x2F;cyc2018.github.io&#x2F;CS-Notes&#x2F;#&#x2F;notes&#x2F;Java 虚拟机?id&#x3D;_4-虚引用)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">2.12.</span> <span class="nav-text">12.线程池</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E4%BA%92%E6%96%A5%E9%94%81%E5%92%8C%E8%87%AA%E6%97%8B%E9%94%81"><span class="nav-number">2.13.</span> <span class="nav-text">13.互斥锁和自旋锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E7%B1%BB%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.14.</span> <span class="nav-text">14.类加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-ThreadLocal"><span class="nav-number">2.15.</span> <span class="nav-text">15.ThreadLocal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#16-new-%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.16.</span> <span class="nav-text">16.new 一个对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#17-static"><span class="nav-number">2.17.</span> <span class="nav-text">17.static</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#18-synchronized%E5%8E%9F%E7%90%86"><span class="nav-number">2.18.</span> <span class="nav-text">18.synchronized原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#19-ReentrantLock%E5%8E%9F%E7%90%86"><span class="nav-number">2.19.</span> <span class="nav-text">19.ReentrantLock原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Java-C-%E7%BB%BC%E5%90%88%E7%90%86%E8%A7%A3"><span class="nav-number">3.</span> <span class="nav-text">Java C++综合理解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1%E6%95%B0%E7%BB%84"><span class="nav-number">3.1.</span> <span class="nav-text">1.创建对象数组</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C"><span class="nav-number">4.</span> <span class="nav-text">计算机网络</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-http%E5%92%8Chttps%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.1.</span> <span class="nav-text">1.http和https的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E9%93%BE%E8%B7%AF%E5%B1%82"><span class="nav-number">4.2.</span> <span class="nav-text">2.数据链路层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E7%BD%91%E7%BB%9C%E5%B1%82"><span class="nav-number">4.3.</span> <span class="nav-text">3.网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E4%BC%A0%E8%BE%93%E5%B1%82"><span class="nav-number">4.4.</span> <span class="nav-text">4.传输层</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#TCP%E7%9A%84%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">4.4.0.0.1.</span> <span class="nav-text">TCP的三次握手</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#TCP%E7%9A%84%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B%E8%BF%87%E7%A8%8B"><span class="nav-number">4.4.0.0.2.</span> <span class="nav-text">TCP的四次挥手过程</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86%E5%92%8C%E9%9D%9E%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86"><span class="nav-number">4.5.</span> <span class="nav-text">5.对称加密和非对称加密</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-Http%E7%9A%84%E4%BC%A0%E8%BE%93%E8%BF%87%E7%A8%8B"><span class="nav-number">4.6.</span> <span class="nav-text">6.Http的传输过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-get%E5%92%8Cpost%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">4.7.</span> <span class="nav-text">7.get和post的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-redirect-forward"><span class="nav-number">4.8.</span> <span class="nav-text">8.redirect  forward</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-select-poll-epoll"><span class="nav-number">4.9.</span> <span class="nav-text">9.select poll epoll</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-http2-0%E5%92%8Chttp1-x"><span class="nav-number">4.10.</span> <span class="nav-text">10.http2.0和http1.x</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-socket"><span class="nav-number">4.11.</span> <span class="nav-text">11.socket</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-url%E8%A7%A3%E6%9E%90%E8%BF%87%E7%A8%8B"><span class="nav-number">4.12.</span> <span class="nav-text">12.url解析过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-DHCP%E9%85%8D%E7%BD%AE%E4%B8%BB%E6%9C%BA%E4%BF%A1%E6%81%AF"><span class="nav-number">4.12.1.</span> <span class="nav-text">1.DHCP配置主机信息</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ARP%E8%A7%A3%E6%9E%90mac%E5%9C%B0%E5%9D%80"><span class="nav-number">4.12.2.</span> <span class="nav-text">2.ARP解析mac地址</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-DNS%E8%A7%A3%E6%9E%90"><span class="nav-number">4.12.3.</span> <span class="nav-text">3.DNS解析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-HTTP%E8%AF%B7%E6%B1%82%E9%A1%B5%E9%9D%A2"><span class="nav-number">4.12.4.</span> <span class="nav-text">4.HTTP请求页面</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-tcp%E7%B2%98%E5%8C%85"><span class="nav-number">4.13.</span> <span class="nav-text">13.tcp粘包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-http%E5%92%8Crpc"><span class="nav-number">4.14.</span> <span class="nav-text">14.http和rpc</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-TCP%E7%AC%AC%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%A4%B1%E8%B4%A5%E5%90%8E%E6%80%8E%E4%B9%88%E5%8A%9E%EF%BC%9F"><span class="nav-number">4.15.</span> <span class="nav-text">15.TCP第三次握手失败后怎么办？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="nav-number">5.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B"><span class="nav-number">5.1.</span> <span class="nav-text">1.进程和线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B9%B6%E5%8F%91%E5%92%8C%E5%B9%B6%E8%A1%8C"><span class="nav-number">5.2.</span> <span class="nav-text">2.并发和并行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%BF%9B%E7%A8%8B%E8%B0%83%E5%BA%A6%E7%AE%97%E6%B3%95"><span class="nav-number">5.3.</span> <span class="nav-text">3.进程调度算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E6%AD%BB%E9%94%81"><span class="nav-number">5.4.</span> <span class="nav-text">4.死锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%99%9A%E5%AD%98%E6%8A%80%E6%9C%AF"><span class="nav-number">5.5.</span> <span class="nav-text">5.虚存技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E7%94%9F%E4%BA%A7%E8%80%85%E6%B6%88%E8%B4%B9%E8%80%85%E9%97%AE%E9%A2%98"><span class="nav-number">5.6.</span> <span class="nav-text">6.生产者消费者问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-%E5%90%8C%E6%AD%A5%E5%92%8C%E5%BC%82%E6%AD%A5"><span class="nav-number">5.7.</span> <span class="nav-text">7.同步和异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-%E8%BF%9B%E7%A8%8B%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="nav-number">5.8.</span> <span class="nav-text">8.进程间通信</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86"><span class="nav-number">6.</span> <span class="nav-text">计算机组成原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-CPU%E5%B7%A5%E4%BD%9C%E8%BF%87%E7%A8%8B"><span class="nav-number">6.1.</span> <span class="nav-text">1.CPU工作过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Cache"><span class="nav-number">6.2.</span> <span class="nav-text">2.Cache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E8%99%9A%E5%AD%98%E5%88%86%E9%A1%B5%E6%8A%80%E6%9C%AF"><span class="nav-number">6.3.</span> <span class="nav-text">3.虚存分页技术</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">7.</span> <span class="nav-text">数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E8%AF%A6%E8%A7%A3"><span class="nav-number">7.1.</span> <span class="nav-text">mysql详解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-B%E6%A0%91%E5%92%8CB-%E6%A0%91%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.2.</span> <span class="nav-text">1.B树和B+树的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%8C%83%E5%BC%8F"><span class="nav-number">7.3.</span> <span class="nav-text">2.数据库范式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E9%9A%94%E7%A6%BB%E7%BA%A7%E5%88%AB"><span class="nav-number">7.4.</span> <span class="nav-text">3.数据库的隔离级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-%E9%9A%94%E7%A6%BB%E6%80%A7%E9%97%AE%E9%A2%98"><span class="nav-number">7.5.</span> <span class="nav-text">4.隔离性问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E7%B4%A2%E5%BC%95"><span class="nav-number">7.6.</span> <span class="nav-text">5.索引</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-%E8%A1%A8%E7%9A%84%E8%BF%9E%E6%8E%A5"><span class="nav-number">7.7.</span> <span class="nav-text">6.表的连接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-ACID"><span class="nav-number">7.8.</span> <span class="nav-text">7.ACID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-X-S%E9%94%81"><span class="nav-number">7.9.</span> <span class="nav-text">8.X&#x2F;S锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-%E4%B9%90%E8%A7%82%E9%94%81%E5%92%8C%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">7.10.</span> <span class="nav-text">9.乐观锁和悲观锁</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%82%B2%E8%A7%82%E9%94%81"><span class="nav-number">7.10.1.</span> <span class="nav-text">悲观锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B9%90%E8%A7%82%E9%94%81"><span class="nav-number">7.10.2.</span> <span class="nav-text">乐观锁</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-%E5%BC%95%E6%93%8E%E5%AF%B9%E6%AF%94"><span class="nav-number">7.11.</span> <span class="nav-text">10.引擎对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-%E6%85%A2%E6%9F%A5%E8%AF%A2"><span class="nav-number">7.12.</span> <span class="nav-text">11.慢查询</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#12-%E6%B0%B4%E5%B9%B3%E5%88%86%E8%A1%A8%E5%92%8C%E5%9E%82%E7%9B%B4%E5%88%86%E8%A1%A8"><span class="nav-number">7.13.</span> <span class="nav-text">12.水平分表和垂直分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#13-%E5%B0%8F%E8%A1%A8%E9%A9%B1%E5%8A%A8%E5%A4%A7%E8%A1%A8"><span class="nav-number">7.14.</span> <span class="nav-text">13.小表驱动大表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#14-%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8"><span class="nav-number">7.15.</span> <span class="nav-text">14.分库分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#15-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6"><span class="nav-number">7.16.</span> <span class="nav-text">15.主从复制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%93%E5%AD%98"><span class="nav-number">8.</span> <span class="nav-text">缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">8.1.</span> <span class="nav-text">1.实现分布式锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9%EF%BC%8C%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF%EF%BC%8C%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">8.2.</span> <span class="nav-text">2.缓存雪崩，缓存击穿，缓存穿透</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-redis%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.3.</span> <span class="nav-text">3.redis基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-%E7%AE%80%E5%8D%95%E5%8A%A8%E6%80%81%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="nav-number">8.3.1.</span> <span class="nav-text">1.简单动态字符串</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-list%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">8.3.2.</span> <span class="nav-text">2.list使用场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-hash"><span class="nav-number">8.3.3.</span> <span class="nav-text">3.hash</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%BF%AB"><span class="nav-number">8.4.</span> <span class="nav-text">4.redis为什么快</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E8%BF%87%E6%9C%9F%E7%AD%96%E7%95%A5%E5%92%8C%E5%86%85%E5%AD%98%E6%B7%98%E6%B1%B0%E6%9C%BA%E5%88%B6"><span class="nav-number">8.5.</span> <span class="nav-text">5.过期策略和内存淘汰机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.</span> <span class="nav-text">设计模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.1.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.2.</span> <span class="nav-text">单例模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BB%BA%E9%80%A0%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.3.</span> <span class="nav-text">建造者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F"><span class="nav-number">9.4.</span> <span class="nav-text">代理模式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring"><span class="nav-number">10.</span> <span class="nav-text">Spring</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-spring-MVC%E8%BF%87%E7%A8%8B"><span class="nav-number">10.1.</span> <span class="nav-text">1.spring MVC过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Spring-Aop-jdk%E4%BB%A3%E7%90%86%E5%92%8Ccglib%E4%BB%A3%E7%90%86"><span class="nav-number">10.2.</span> <span class="nav-text">2.Spring Aop jdk代理和cglib代理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GoLang"><span class="nav-number">11.</span> <span class="nav-text">GoLang</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%95%B0%E7%BB%84%E5%92%8C%E5%88%87%E7%89%87"><span class="nav-number">11.1.</span> <span class="nav-text">1.数组和切片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8F%98%E9%87%8F"><span class="nav-number">11.2.</span> <span class="nav-text">2.变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8C%87%E9%92%88%E5%92%8C%E6%8E%A5%E5%8F%A3"><span class="nav-number">11.3.</span> <span class="nav-text">3.指针和接口</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
